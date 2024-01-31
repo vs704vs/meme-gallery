@@ -28,7 +28,7 @@ export default function Meme({ meme, index }) {
           />
         )}
       </Item>
-      
+
       {isHovered && (
         <div className="absolute z-50 -my-16 -mx-10">
           <ul>
