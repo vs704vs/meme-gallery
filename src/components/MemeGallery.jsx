@@ -30,7 +30,7 @@ export default function MemeGallery() {
   const handleScroll = () => {
     if (
       window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 200
+      document.documentElement.scrollHeight - 400
     ) {
       setLoading(true);
       setLoadCount((prev) => prev + 1);
