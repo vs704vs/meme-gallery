@@ -41,7 +41,7 @@ export default function MemeGallery() {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://www.reddit.com/r/memes.json?after=${afterParameter}`
+        `https://www.reddit.com/r/memes.json?after=${afterParameter}&limit=100`
       );
       const responseData = res.data;
 
@@ -62,7 +62,7 @@ export default function MemeGallery() {
       <Navbar />
 
       <Gallery>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:mx-64 lg:my-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:mx-64 lg:my-20">
           {memes &&
             memes.map((meme, index) => {
               if (

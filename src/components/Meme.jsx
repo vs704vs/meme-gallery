@@ -30,7 +30,7 @@ export default function Meme({ meme, index }) {
       </Item>
 
       {isHovered && (
-        <div className="absolute z-50 -my-16 -mx-10">
+        <div className="absolute z-40 -my-16 -mx-10">
           <ul>
             <li>
               <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-800 dark:text-gray-300">
