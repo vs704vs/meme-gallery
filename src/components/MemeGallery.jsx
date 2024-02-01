@@ -9,34 +9,22 @@ import Loader from "./Loader";
 import Navbar from "./Navbar";
 
 export default function MemeGallery() {
+  // State variables for managing memes, parameter, loading state, and load count
   const [memes, setMemes] = useState([]);
   const [afterParameter, setAfterParameter] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadCount, setLoadCount] = useState(0);
 
+  // useEffect to fetch memes on component mount and add scroll event listener
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(); // Initial fetch
     console.log("useEffect has run");
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll); // cleanup function
-  }, [loadCount]);
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup function
+  }, [loadCount]); // Dependency array ensures re-run when loadCount changes
 
-  //   useEffect(() => {
-  //     console.log(memes);
-  //     console.log(afterParameter);
-  //   }, [memes]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 400
-    ) {
-      setLoading(true);
-      setLoadCount((prev) => prev + 1);
-    }
-  };
-
+  // Function to fetch memes from Reddit API
   const fetchPosts = async () => {
     setLoading(true);
     try {
@@ -45,24 +33,31 @@ export default function MemeGallery() {
       );
       const responseData = res.data;
 
+      // Update required state
       setMemes((prevMemes) => [...prevMemes, ...responseData.data.children]);
       setAfterParameter(responseData.data.after);
       setLoading(false);
     } catch (error) {
       console.error(error);
     }
-    // const param = afterParameter;
-    // const response = await res.data
-    // const responseData = await response.json();
   };
 
+  // Function to handle scroll events and trigger additional meme loading
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 400
+    ) {
+      setLoading(true); 
+      setLoadCount((prev) => prev + 1); 
+    }
+  };
+
+  // JSX rendering of the component
   return (
-    <div>
-
+    <>
       <Navbar />
-      {loading && <Loader />}
-
-
+      {loading && <Loader />}{" "}
       <Gallery>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:mx-64 lg:my-20">
           {memes &&
@@ -75,6 +70,6 @@ export default function MemeGallery() {
             })}
         </div>
       </Gallery>
-    </div>
+    </>
   );
 }
